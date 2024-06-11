@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v0.0.2
+
+- fix: cd namespace autocompletion case support
+- fix: settings heading typo
+
 ## v0.0.1
 
 - Simulate a terminal for Logseq
