@@ -4,6 +4,8 @@
 
 A terminal simulator for Logseq.
 
+![](./public/assets/screenshot.png)
+
 **Note: Terminal is a paid plugin now. I charge a fee for a few of the features in this plugin. Most features are still free to use. Actually, I only charge the use of command history feature, the income will be used to support the development of this plugin.**
 
 ## Usage
