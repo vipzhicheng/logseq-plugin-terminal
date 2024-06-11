@@ -1,1 +1,0 @@
-import{_ as e,c as a,o as t,a5 as l}from"./chunks/framework.CXwJbHuV.js";const m=JSON.parse('{"title":"Logseq Terminal","description":"","frontmatter":{},"headers":[],"relativePath":"README.md","filePath":"README.md"}'),i={name:"README.md"},o=l("",12),n=[o];function r(s,h,c,u,d,p){return t(),a("div",null,n)}const f=e(i,[["render",r]]);export{m as __pageData,f as default};
