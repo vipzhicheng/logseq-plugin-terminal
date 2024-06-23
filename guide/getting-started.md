@@ -13,10 +13,10 @@ It would be getting more commands in the future.
 ## Features
 
 - Support cd, ls, cat, pwd, tree, clear... 20+ commands
-- Support command history and nagivate by up/down arrow key, or ctrl+p/ctrl+n
-- Support command tab auto completion
+- Support command history and navigate by up/down arrow key, or ctrl+p/ctrl+n
+- Support command tab auto-completion
 - Support namespace autocompletion for cd, cat, ls and so on.
-- Support line cursor and nagivate by left/right arrow key
+- Support line cursor and navigate by left/right arrow key
 - Support Emoji, CJK
 - Support some common shortcuts. e.g. ctrl+a/ctrl+e, ctrl+d/ctrl+h, ctrl+f/ctrl+b, ctrl+k/ctrl+u, ctrl+l and so on.
 - Support pipeline command, output redirection, prompt, progress bar.
