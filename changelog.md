@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v0.0.3
+
+- feat: Support prompt feature
+- feat: Support progress bar
+- feat: Support pipe output
+- feat: Support redirect output
+- feat: Support better input parse
+- feat: Add command: echo, count, change-case,
+- feat: Add command: touch, rm, mv, xargs
+- feat: Add command: head, tail, whoami
+- chore: Unify the definition of command formats
+- fix: Strength ls command
+
 ## v0.0.2
 
 - fix: cd namespace autocompletion case support

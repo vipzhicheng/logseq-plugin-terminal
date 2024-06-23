@@ -12,13 +12,14 @@ Logseq Terminal 是 Logseq 的一个终端模拟器。它可以用于在终端�
 
 ## 功能
 
-- 支持 cd、ls、cat、pwd、tree、clear 等命令
+- 支持 cd、ls、cat、pwd、tree、clear 等 20 多个命令
 - 支持命令历史记录并通过上下箭头键或 ctrl+p/ctrl+n 导航
 - 支持命令 tab 自动完成
 - 支持 cd、cat、ls 等命令的命名空间自动完成
 - 支持行光标并通过左右箭头键导航
 - 支持表情符号、CJK
 - 支持一些常用的快捷键，例如 ctrl+a/ctrl+e、ctrl+d/ctrl+h、ctrl+f/ctrl+b、ctrl+k/ctrl+u、ctrl+l 等
+- 支持管道命令，输出重定向，提示输入，进度条等终端特性
 
 ## 安装
 
@@ -62,9 +63,23 @@ Logseq 右上角有一个图标可以触发终端 UI。默认情况下没有快�
 
 ## 命令
 
-### help
+### block
 
-显示帮助信息。它会打印所有命令及其描述。
+显示块内容。
+
+```
+$ block -h
+
+显示块内容。
+用法: block BLOCK_UUID [选项]。
+
+  -h, --help   显示帮助
+  -i, --info   以JSON格式显示块信息
+  -c, --count  计算行数和字符数
+  -o, --only   仅当前块，不包括子块
+  --no-dashes  输出时不带破折号前缀
+  --no-spaces  输出时不带空格前缀
+```
 
 ### cat
 
@@ -72,95 +87,302 @@ Logseq 右上角有一个图标可以触发终端 UI。默认情况下没有快�
 
 ```
 $ cat -h
-显示页面或日志内容。用法：cat [PAGE_NAME|JOURNAL_DATE] [选项]。
+
+显示页面或日志内容。
+用法: cat [PAGE_NAME|JOURNAL_DATE] [OTHER_PAGE_NAME|OTHER_JOURNAL_DATE] [选项]。
 
   -h, --help   显示帮助
-  -i, --info   以 JSON 格式显示页面或日志信息
-  -c, --count  统计行数和字符数
-  -u, --uuid   显示带块 uuid 的页面或日志内容
-  -o, --only   仅显示当前块，不包括子块
-```
-
-### block
-
-显示块内容。
-
-```
-$ block -h
-显示块内容。用法：block BLOCK_UUID [选项]。
-
-  -h, --help   显示帮助
-  -i, --info   以 JSON 格式显示块信息
-  -c, --count  统计行数和字符数
-  -o, --only   仅显示当前块，不包括子块
+  -i, --info   以JSON格式显示页面或日志信息
+  -c, --count  计算行数和字符数
+  -u, --uuid   显示带有块UUID的页面或日志内容
+  -o, --only   仅一级块，不包括子块
+  --no-dashes  输出时不带破折号前缀
+  --no-spaces  输出时不带空格前缀
 ```
 
 ### cd
 
-更改当前工作目录。它由 Logseq 命名空间模拟。
+更改当前工作目录。通过 Logseq 命名空间模拟。
 
 ```
 $ cd -h
-切换到页面或日志并更改 pwd。用法：cd PAGE_NAME|JOURNAL_DATE [选项]。
+
+切换到页面或日志并更改当前目录。
+用法: cd PAGE_NAME|JOURNAL_DATE [选项]。
 
   -h, --help  显示帮助
 ```
 
-### ls
+### change-case, cc
 
-列出当前命名空间前缀下的页面。支持一些过滤器。
-
-```
-$ ls -h
-列出当前命名空间前缀下的页面。用法：ls [NAMESPACE_PREFIX] [选项]。
-
-  -h, --help        显示帮助
-  --limit Int       限制页面数量
-  --prefix String   过滤以指定前缀开头的页面
-  --suffix String   过滤以指定后缀结尾的页面
-  --contain String  过滤包含指定字符串的页面
-  --regexp String   通过正则表达式过滤页面
-  --glob String     通过 glob 过滤页面
-```
-
-### pwd
-
-显示当前命名空间前缀和 Graph 名称。
-
-### tree
-
-以树状格式打印命名空间前缀及其子节点。
+更改大小写类型。
 
 ```
-$ tree -h
-以树状格式显示命名空间前缀。用法：tree [NAMESPACE_PREFIX] [选项]。
+$ change-case -h
 
-  -h, --help  显示帮助
+更改大小写类型。
+用法: change-case BLOCK_UUID [选项]。
+
+  -h, --help       显示帮助
+  -t, --to String  大小写类型
+  -a, --all-types  显示所有支持的大小写类型
 ```
 
 ### clear
 
-清除终端屏幕。
+清屏。
+
+```
+$ clear -h
+
+清屏。
+用法: clear [选项]。
+
+  -h, --help  显示帮助
+```
+
+### count
+
+计算页面或日志内容的行数。
+
+```
+$ count -h
+
+计算页面或日志内容的行数。
+用法: count [PAGE_NAME|JOURNAL_DATE] [选项]。
+
+  -h, --help  显示帮助
+```
+
+### echo
+
+将参数写入标准输出。
+
+```
+$ echo -h
+
+将参数写入标准输出。
+用法: echo [arguments] [选项]。
+
+  -h, --help  显示帮助
+```
+
+### head
+
+显示页面或日志内容的前几行。
+
+```
+$ head -h
+
+显示页面或日志内容的前几行。
+用法: head [PAGE_NAME|JOURNAL_DATE] [OTHER_PAGE_NAME|OTHER_JOURNAL_DATE] [选项]。
+
+  -h, --help        显示帮助
+  --show-title      显示页面名称作为标题
+  -n, --number Int  打印每个指定页面的行数 - 默认: 10
+```
+
+### help
+
+列出所有支持的命令或特定命令的帮助信息。
+
+```
+$ help -h
+
+列出所有支持的命令或特定命令的帮助信息。
+用法: help [COMMAND] [选项]。
+
+  -h, --help  显示帮助
+```
+
+### history
+
+显示历史命令。
+
+```
+$ history -h
+
+显示历史命令。
+用法: history [选项]。
+
+  -h, --help   显示帮助
+  -c, --clear  清除历史记录
+```
 
 ### license
 
 显示许可证状态。
 
 ```
-显示许可证状态。用法：license [选项]。
+$ license -h
+
+显示许可证状态。
+用法: license [选项]。
 
   -h, --help      显示帮助
   -a, --activate  激活许可证
 ```
 
+### ls
+
+列出当前命名空间前缀下的页面。
+
+```
+$ ls -h
+
+列出当前命名空间前缀下的页面。
+用法: ls [NAMESPACE_PREFIX] [选项]。
+
+  -h, --help        显示帮助
+  -f, --file        以页面名称作为输入以检查页面是否存在
+  --limit Int       页面数量限制
+  --prefix String   按前缀过滤页面
+  --suffix String   按后缀过滤页面
+  --contain String  按包含字符串过滤页面
+  --regexp String   按正则表达式过滤页面
+  --glob String     按glob模式过滤页面
+  --max-size Int    按最大内容字符数过滤页面
+  --min-size Int    按最小内容字符数过滤页面
+  --absolute        输出绝对路径（前导斜杠），除了纯路径名或日志日期
+```
+
+### mv
+
+更改页面名称或日志日期。
+
+```
+$ mv -h
+
+更改页面名称或日志日期。
+用法: mv [PAGE_NAME|JOURNAL_DATE] [NEW_PAGE_NAME|NEW_JOURNAL_DATE] [选项]。
+
+  -h, --help       显示帮助
+  -j, --journal    修改日志
+  -r, --recursive  递归执行
+  -f, --force      不提示确认直接处理
+  --dry-run        模拟操作，不做任何更改
+```
+
+### pwd
+
+显示当前页面和/或块的 UUID。
+
+```
+$ pwd -h
+
+显示当前页面和/或块的UUID。
+用法: pwd [选项]。
+
+  -h, --help  显示帮助
+```
+
+### quit, exit, by
+
+退出终端。
+
+```
+$ quit -h
+
+退出终端。
+用法: quit [选项]。
+
+  -h, --help  显示帮助
+```
+
+### rm
+
+删除页面或日志。
+
+```
+$ rm -h
+
+删除页面或日志。
+用法: rm [PAGE_NAME|JOURNAL_DATE] [OTHER_PAGE_NAME|OTHER_JOURNAL_DATE] [选项]。
+
+  -h, --help       显示帮助
+  -f, --force      不提示确认直接处理
+  -r, --recursive  递归执行
+  --dry-run        模拟操作，不做任何更改
+```
+
 ### settings
 
-关闭终端窗口并打开插件设置窗口。
+打开终端设置。
 
-### history
+```
+$ settings -h
 
-显示命令历史记录。
+打开终端设置。
+用法: settings [选项]。
 
-### quit, exit, bye
+  -h, --help  显示帮助
+```
 
-关闭终端窗口。
+### tail
+
+显示页面或日志内容的最后几行。
+
+```
+$ tail -h
+
+显示页面或日志内容的最后几行。
+用法: head [PAGE_NAME|JOURNAL_DATE] [OTHER_PAGE_NAME|OTHER_JOURNAL_DATE] [选项]。
+
+  -h, --help        显示帮助
+  -n, --number Int  打印每个指定页面的行数 - 默认: 10
+```
+
+### touch
+
+创建页面或日志。
+
+```
+$ touch -h
+
+创建页面或日志。
+用法: touch [PAGE_NAME|JOURNAL_DATE] [OTHER_PAGE_NAME|OTHER_JOURNAL_DATE] [选项]。
+
+  -h, --help     显示帮助
+  -j, --journal  创建日志
+  -f, --force    不提示确认直接处理
+```
+
+### tree
+
+以树状格式显示命名空间前缀。
+
+```
+$ tree -h
+
+以树状格式显示命名空间前缀。
+用法: tree [NAMESPACE_PREFIX] [选项]。
+
+  -h, --help  显示帮助
+```
+
+### whoami
+
+显示当前图表。
+
+```
+$ whoami -h
+
+显示当前图表。
+用法: whoami [选项]。
+
+  -h, --help  显示帮助
+```
+
+### xargs
+
+显示页面或日志内容的前几行。
+
+```
+$ xargs -h
+
+显示页面或日志内容的前几行。
+用法: head [PAGE_NAME|JOURNAL_DATE] [OTHER_PAGE_NAME|OTHER_JOURNAL_DATE] [选项]。
+
+  -h, --help            显示帮助
+  -I, --replstr String  替换参数中的一个或多个replstr - 默认: {}
+```
